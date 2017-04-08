@@ -1,0 +1,261 @@
+﻿
+<hr />
+<div ng-controller="talentosCtrl">
+    <div class="row" ng-hide="DadosControle.isEdicao">
+        <div class="col-sm-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <form role="form">
+                        <div class="row">
+                            <div class='col-sm-4'>
+                                <div class='form-group'>
+                                    <label>Pesquisar</label>
+                                    <input type='text' placeholder='Pesquisar' ng-model='filtro' id='filtro' name='filtro' class='form-control  input-sm' />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive ">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:8%" class="text-center">
+                                    <button class="btn-xs btn-primary " type="button" ng-click="NovoTalento()"><i class="fa fa-plus"></i>&nbsp;Novo</button>
+                                </th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Skype</th>
+                                <th>Whatsapp</th>
+                                <th>Pretensão</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-if="(listaTalentos.length>0)">
+                            <tr ng-repeat="item in listaTalentos | filter:filtro">
+                                <td>
+                                    <a href="#" ng-click="Editartalento(item);">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                    <a href="#" ng-click="Deletartalento(item);">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                                <td>{{::item.nome}}</td>
+                                <td>{{::item.email}}</td>
+                                <td>{{::item.skype}}</td>
+                                <td>{{::item.whatsapp}}</td>
+                                <td>{{::item.pretensao}}</td>
+                            </tr>
+
+                        </tbody>
+                        <tbody ng-if="(listaTalentos.length==0)">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <h5>Dados não encontrato</h5>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row" ng-if="DadosControle.isEdicao">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Novo Cadastro
+                </div>
+                <div class="panel-body">
+                    <div id="exTab3" class="container cadastro">
+                        <form id="formCadastro" role="form" data-toggle="validator">
+                            <ul class="nav nav-pills">
+                                <li class="active">
+                                    <a href="#1b" data-toggle="tab" id="aba1">Personal Info / Informação Pessoal</a>
+                                </li>
+                                <li>
+                                    <a href="#2b" data-toggle="tab" id="aba2" ng-hide="DadosControle.aba2">Bank Information / Informação bancária</a>
+                                </li>
+                                <li>
+                                    <a href="#3b" data-toggle="tab" id="aba3" ng-hide="DadosControle.aba3">Knowledge / Conhecimentos</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content clearfix">
+                                <div class="tab-pane active" id="1b">
+                                    <div class="row">
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Endereço de e-mail</label>
+                                                <input type='text' placeholder='Email' ng-model='model.Email' id='Email' name='Email' class='form-control  input-sm' required />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Nome/Name</label>
+                                                <input type='text' placeholder='Nome' ng-model='model.Nome' id='Nome' name='Nome' class='form-control  input-sm' required />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Skype: ( please create an account if you don't have yet / bom criar caso não tenha)</label>
+                                                <input type='text' placeholder='Skype' ng-model='model.Skype' id='Skype' name='Skype' class='form-control  input-sm' required />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Telefone/Phone (Whatsapp)</label>
+                                                <input type='text' placeholder='Whatsapp' ng-model='model.Whatsapp' id='Whatsapp' name='Whatsapp' class='form-control  input-sm' required />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Linkedin</label>
+                                                <input type='text' placeholder='Linkedin' ng-model='model.Linkedin' id='Linkedin' name='Linkedin' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Cidade / City</label>
+                                                <input type='text' placeholder='Cidade' ng-model='model.Cidade' id='Cidade' name='Cidade' class='form-control  input-sm' required />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Estado/ State</label>
+                                                <input type='text' placeholder='Estado' ng-model='model.Estado' id='Estado' name='Estado' class='form-control  input-sm' required />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Portfolio</label>
+                                                <input type='text' placeholder='Portfolio' ng-model='model.Portfolio' id='Portfolio' name='Portfolio' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>What is your willingness to work today? / Qual é sua disponibilidade para trabalhar hoje?</label>
+                                                <select required combo-select2 multiple ng-model="model.TalentoDisponibilidade" style="width:100%" class="form-control  input-sm " ng-options="l.idDisponibilidade as l.descricao for l in  listaDisponibilidade"></select>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>What's the best time to work for you? / Pra você qual é o melhor horário para trabalhar? </label>
+                                                <select required combo-select2 multiple ng-model="model.TalentoMelhorHorario" style="width:100%" class="form-control  input-sm " ng-options="l.idMelhorHorario as l.descricao for l in  listaMelhorHorario"></select>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>What is your hourly salary requirements? / Qual sua pretensão salarial por hora?</label>
+                                                <input type='number' placeholder='Pretensao' ng-model='model.Pretensao' id='Pretensao' name='Pretensao' class='form-control  input-sm' required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="2b">
+                                    <div class="row">
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Name / Nome</label>
+                                                <input type='text' placeholder='Senha' ng-model='model.InfoBancaria.Nome' id='Nome_banc' name='Nome_banc' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Only for Brazilians / CPF</label>
+                                                <input type='number' placeholder='Cpf' ng-model='model.InfoBancaria.Cpf' id='Cpf' name='Cpf' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Bank / Banco ( Itau, Bradesco, ect..)</label>
+                                                <input type='text' placeholder='Banco' ng-model='model.InfoBancaria.Banco' id='Banco' name='Banco' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Agency / Agencia</label>
+                                                <input type='text' placeholder='Agencia' ng-model='model.InfoBancaria.Agencia' id='Agencia' name='Agencia' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Account Type / Tipo de conta</label>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" ng-model='model.InfoBancaria.TipoContaCorrente' value="C">Chain / Corrente</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" ng-model='model.InfoBancaria.TipoContaPoupanca' value="P">Savings / Poupança</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Account Number / Número da conta</label>
+                                                <input type='text' placeholder='NumeroConta' ng-model='model.InfoBancaria.NumeroConta' id='NumeroConta' name='NumeroConta' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="3b">
+                                    <div class="row">
+                                        <div class='col-sm-12'>
+                                            <h4>Rate yourself from 0 to 5 for the knowledge specified below, and that's okay if you do not know many things, the important thing is to be honest! / Avalie-se de 0 a 5 quanto aos conhecimentos especificados abaixo, e tudo bem se não souber de muitas coisas, o importante é que seja sincero!</h4>
+                                        </div>
+                                        <div ng-repeat="item in ListaConhecimentosEsp">
+                                            <div class='col-sm-12'>
+                                                <label>{{item.descricao}}</label>
+                                            </div>
+                                            <div class='col-sm-12'>
+                                                <div class='form-group'>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="{{item.idConhecimentoEspecifico}}" value="1" ng-model="item.avaliacao">1
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="{{item.idConhecimentoEspecifico}}" value="2" ng-model="item.avaliacao">2
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="{{item.idConhecimentoEspecifico}}" value="3" ng-model="item.avaliacao">3
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="{{item.idConhecimentoEspecifico}}" value="4" ng-model="item.avaliacao">4
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="{{item.idConhecimentoEspecifico}}" value="5" ng-model="item.avaliacao">5
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Link CRUD</label>
+                                                <input type='text' placeholder='LinkCrud' ng-model='model.LinkCrud' id='LinkCrud' name='LinkCrud' class='form-control  input-sm' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 col-sm-offset-8  ">
+                                    <div class="text-right m-t-xs">
+
+                                        <button class="btn-sm btn-white  " type="submit" ng-click="Cancelar();"><i class="fa fa-ban "></i>&nbsp;Cancelar</button>
+                                        <button class="btn-sm btn-primary " type="submit" ng-click="Addtalento(model);"><i class="fa fa-save "></i> &nbsp;{{DadosControle.btnAdd}}</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

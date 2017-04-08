@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\lib\angular\**" />
+    <Content Remove="wwwroot\lib\angular\**" />
+    <EmbeddedResource Remove="wwwroot\lib\angular\**" />
+    <None Remove="wwwroot\lib\angular\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\Site.css" />
+    <Content Include="wwwroot\scripts\App.js" />
+    <Content Include="wwwroot\scripts\bootstrap\bootstrap.js" />
+    <Content Include="wwwroot\scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="wwwroot\scripts\Geral.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\scripts\angular\" />
+  </ItemGroup>
+
+</Project>
