@@ -6,7 +6,7 @@ namespace BancoDeTalentosAngular.Models
     public partial class TalentoConhecimentos
     {
         public int IdTalentoConhecimentos { get; set; }
-        public int? IdTalento { get; set; }
+        public int IdTalento { get; set; }
         public int IdConhecimentoEspecifico { get; set; }
         public int? Avaliacao { get; set; }
 

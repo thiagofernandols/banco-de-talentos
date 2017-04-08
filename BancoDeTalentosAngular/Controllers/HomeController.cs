@@ -40,7 +40,7 @@ namespace BancoDeTalentosAngular.Controllers
             {
                 try
                 {
-                    dynamic disp = bd.Disponibilidade.ToList();
+                    dynamic disp = bd.Disponibilidade.ToList().Distinct();
                     return Json(disp);
                 }
                 catch (Exception ex)
@@ -55,7 +55,7 @@ namespace BancoDeTalentosAngular.Controllers
             {
                 try
                 {
-                    dynamic mh = bd.MelhorHorario.ToList();
+                    dynamic mh = bd.MelhorHorario.ToList().Distinct();
                     return Json(mh);
                 }
                 catch (Exception ex)

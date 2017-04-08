@@ -26,7 +26,7 @@ namespace BancoDeTalentosAngular.Models
             modelBuilder.Entity<ConhecimentoEspecifico>(entity =>
             {
                 entity.HasKey(e => e.IdConhecimentoEspecifico)
-                    .HasName("PK__Conhecim__939C3BC5652A5B37");
+                    .HasName("PK__Conhecim__939C3BC5543FF608");
 
                 entity.Property(e => e.Descricao)
                     .IsRequired()
@@ -36,7 +36,7 @@ namespace BancoDeTalentosAngular.Models
             modelBuilder.Entity<Disponibilidade>(entity =>
             {
                 entity.HasKey(e => e.IdDisponibilidade)
-                    .HasName("PK__Disponib__BC5612FD9CDC5928");
+                    .HasName("PK__Disponib__BC5612FD71DA0FFC");
 
                 entity.Property(e => e.Descricao)
                     .IsRequired()
@@ -45,14 +45,18 @@ namespace BancoDeTalentosAngular.Models
 
             modelBuilder.Entity<InfoBancaria>(entity =>
             {
-                entity.HasKey(e => e.IdInfoBancaria)
-                    .HasName("PK__InfoBanc__DDF3ED0E9F62613E");
+                entity.HasKey(e => new { e.IdInfoBancaria, e.IdTalento })
+                    .HasName("PK__InfoBanc__8E558867C000F1CC");
+
+                entity.Property(e => e.IdInfoBancaria).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Agencia).HasMaxLength(100);
 
                 entity.Property(e => e.Banco).HasMaxLength(50);
 
-                entity.Property(e => e.Cpf).HasColumnName("CPF");
+                entity.Property(e => e.Cpf)
+                    .HasColumnName("CPF")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Nome).HasMaxLength(200);
 
@@ -63,14 +67,13 @@ namespace BancoDeTalentosAngular.Models
                 entity.HasOne(d => d.IdTalentoNavigation)
                     .WithMany(p => p.InfoBancaria)
                     .HasForeignKey(d => d.IdTalento)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_InfoBancaria_Talento");
             });
 
             modelBuilder.Entity<MelhorHorario>(entity =>
             {
                 entity.HasKey(e => e.IdMelhorHorario)
-                    .HasName("PK__MelhorHo__64AE45DE9F99C2CE");
+                    .HasName("PK__MelhorHo__64AE45DE91FBCE16");
 
                 entity.Property(e => e.Descricao)
                     .IsRequired()
@@ -80,7 +83,7 @@ namespace BancoDeTalentosAngular.Models
             modelBuilder.Entity<Talento>(entity =>
             {
                 entity.HasKey(e => e.IdTalento)
-                    .HasName("PK__Talento__3A665694547A399B");
+                    .HasName("PK__Talento__3A66569415B5D03A");
 
                 entity.Property(e => e.Cidade)
                     .IsRequired()
@@ -119,8 +122,10 @@ namespace BancoDeTalentosAngular.Models
 
             modelBuilder.Entity<TalentoConhecimentos>(entity =>
             {
-                entity.HasKey(e => e.IdTalentoConhecimentos)
-                    .HasName("PK__TalentoC__554B140808A9CB23");
+                entity.HasKey(e => new { e.IdTalentoConhecimentos, e.IdTalento, e.IdConhecimentoEspecifico })
+                    .HasName("PK__TalentoC__C27EED5AD6CC7FEF");
+
+                entity.Property(e => e.IdTalentoConhecimentos).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.IdConhecimentoEspecificoNavigation)
                     .WithMany(p => p.TalentoConhecimentos)
@@ -130,14 +135,15 @@ namespace BancoDeTalentosAngular.Models
                 entity.HasOne(d => d.IdTalentoNavigation)
                     .WithMany(p => p.TalentoConhecimentos)
                     .HasForeignKey(d => d.IdTalento)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_TalentoConh_Talento");
             });
 
             modelBuilder.Entity<TalentoDisponibilidade>(entity =>
             {
-                entity.HasKey(e => e.IdTalentoDisponibilidade)
-                    .HasName("PK__TalentoD__8553DE1C1642E4D3");
+                entity.HasKey(e => new { e.IdTalentoDisponibilidade, e.IdTalento })
+                    .HasName("PK__TalentoD__D6F5BB752DE216A7");
+
+                entity.Property(e => e.IdTalentoDisponibilidade).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.IdDisponibilidadeNavigation)
                     .WithMany(p => p.TalentoDisponibilidade)
@@ -148,14 +154,15 @@ namespace BancoDeTalentosAngular.Models
                 entity.HasOne(d => d.IdTalentoNavigation)
                     .WithMany(p => p.TalentoDisponibilidade)
                     .HasForeignKey(d => d.IdTalento)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_TalentoDisp_Talento");
             });
 
             modelBuilder.Entity<TalentoMelhorHorario>(entity =>
             {
-                entity.HasKey(e => e.IdTalentoMelhorHorario)
-                    .HasName("PK__TalentoM__ADE0F29F1F21B462");
+                entity.HasKey(e => new { e.IdTalentoMelhorHorario, e.IdTalento })
+                    .HasName("PK__TalentoM__FE4697F678E66F60");
+
+                entity.Property(e => e.IdTalentoMelhorHorario).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.IdMelhorHorarioNavigation)
                     .WithMany(p => p.TalentoMelhorHorario)
@@ -166,7 +173,6 @@ namespace BancoDeTalentosAngular.Models
                 entity.HasOne(d => d.IdTalentoNavigation)
                     .WithMany(p => p.TalentoMelhorHorario)
                     .HasForeignKey(d => d.IdTalento)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_TalentoMH_Talento");
             });
         }

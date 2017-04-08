@@ -48,6 +48,7 @@ app.controller("talentosCtrl", function ($scope, $http) {
             console.log(response);
         });
     }
+    $scope.GetConhecimentoEspecifico();
     $scope.Addtalento = function (talento) {
         if ($scope.DadosControle.isInsert && $(".cadastro").find(".ng-invalid").length > 0) {
             return;
@@ -88,11 +89,11 @@ app.controller("talentosCtrl", function ($scope, $http) {
             InfoBancaria: []
         };
         for (var i in talento.TalentoDisponibilidade) {
-            objeto.TalentoDisponibilidade.push({ idDisponibilidade: talento.TalentoDisponibilidade[i] });
+            objeto.TalentoDisponibilidade.push({ idTalento: talento.IdTalento, idDisponibilidade: talento.TalentoDisponibilidade[i] });
         }
 
         for (var i in talento.TalentoMelhorHorario) {
-            objeto.TalentoMelhorHorario.push({ idMelhorHorario: talento.TalentoMelhorHorario[i] });
+            objeto.TalentoMelhorHorario.push({ idTalento: talento.IdTalento, idMelhorHorario: talento.TalentoMelhorHorario[i] });
         }
         if (talento.InfoBancaria) {
             var tipoConta;
@@ -102,15 +103,21 @@ app.controller("talentosCtrl", function ($scope, $http) {
                 tipoConta = "P";
             else if (talento.InfoBancaria.TipoContaCorrente && talento.InfoBancaria.TipoContaPoupanca)
                 tipoConta = "C,P";
-
-            objeto.InfoBancaria.push({
-                Nome: talento.InfoBancaria.Nome, Cpf: talento.InfoBancaria.Cpf, Banco: talento.InfoBancaria.Banco, Agencia: talento.InfoBancaria.Agencia,
-                TipoConta: tipoConta, NumeroConta: talento.InfoBancaria.NumeroConta
-            });
+            if ($scope.DadosControle.isInsert) {
+                objeto.InfoBancaria.push({
+                    Nome: talento.InfoBancaria.Nome, Cpf: talento.InfoBancaria.Cpf, Banco: talento.InfoBancaria.Banco, Agencia: talento.InfoBancaria.Agencia,
+                    TipoConta: tipoConta, NumeroConta: talento.InfoBancaria.NumeroConta
+                });
+            } else {
+                objeto.InfoBancaria.push({
+                    IdTalento: talento.IdTalento, IdInfoBancaria: talento.InfoBancaria.IdInfoBancaria, Nome: talento.InfoBancaria.Nome, Cpf: talento.InfoBancaria.Cpf, Banco: talento.InfoBancaria.Banco, Agencia: talento.InfoBancaria.Agencia,
+                    TipoConta: tipoConta, NumeroConta: talento.InfoBancaria.NumeroConta
+                });
+            }
         }
         for (var i in $scope.ListaConhecimentosEsp) {
             if ($scope.ListaConhecimentosEsp[i].avaliacao)
-                objeto.TalentoConhecimentos.push({ idConhecimentoEspecifico: $scope.ListaConhecimentosEsp[i].idConhecimentoEspecifico, Avaliacao: $scope.ListaConhecimentosEsp[i].avaliacao });
+                objeto.TalentoConhecimentos.push({ idTalentoConhecimentos: $scope.ListaConhecimentosEsp[i].idTalentoConhecimentos, idTalento: talento.IdTalento, idConhecimentoEspecifico: $scope.ListaConhecimentosEsp[i].idConhecimentoEspecifico, Avaliacao: $scope.ListaConhecimentosEsp[i].avaliacao });
         }
         var _url = '/home/IncluirTalento/';
         if (!$scope.DadosControle.isInsert) {
@@ -248,10 +255,11 @@ app.controller("talentosCtrl", function ($scope, $http) {
             data: JSON.stringify(talento)
         }).then(function successCallback(response) {
             for (var i in response.data) {
+                $scope.model.InfoBancaria.IdInfoBancaria = response.data[i].idInfoBancaria;
                 $scope.model.InfoBancaria.Nome = response.data[i].nome;
-                $scope.model.InfoBancaria.Cpf = response.data[i].cpf;
                 $scope.model.InfoBancaria.Banco = response.data[i].banco;
                 $scope.model.InfoBancaria.Agencia = response.data[i].agencia;
+                $scope.model.InfoBancaria.Cpf = response.data[i].cpf;
                 
                 if (response.data[i].tipoConta == "C")
                     $scope.model.InfoBancaria.TipoContaCorrente = true;
