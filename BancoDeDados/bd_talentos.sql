@@ -18,13 +18,13 @@ CREATE TABLE InfoBancaria
 ( 
 	IdInfoBancaria             integer IDENTITY ( 1,1 ) ,
 	Nome                  nvarchar(200)   NULL ,
-	CPF                 integer   NULL ,
+	CPF                 nvarchar(50)   NULL ,
 	Banco              nvarchar(50)   NULL ,
 	Agencia              nvarchar(100)   NULL ,
 	TipoConta                nvarchar(50)   NULL ,
 	NumeroConta                nvarchar(50)   NULL ,
 	IdTalento             integer
-	primary key (IdInfoBancaria),
+	primary key (IdInfoBancaria, IdTalento),
 	constraint fk_InfoBancaria_Talento foreign key (IdTalento) references Talento (IdTalento) on delete cascade
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE TalentoDisponibilidade
 	IdTalentoDisponibilidade            integer IDENTITY ( 1,1 ) ,
     IdTalento             integer,
 	IdDisponibilidade     integer ,
-	primary key (IdTalentoDisponibilidade),
+	primary key (IdTalentoDisponibilidade,IdTalento),
 	constraint fk_TalentoDisp_Talento foreign key (IdTalento) references Talento (IdTalento) on delete cascade,
 	constraint fk_TalentoDisp_Disponi foreign key (IdDisponibilidade) references Disponibilidade (IdDisponibilidade) on delete cascade
 );
@@ -57,7 +57,7 @@ CREATE TABLE TalentoMelhorHorario
 	IdTalentoMelhorHorario             integer IDENTITY ( 1,1 ) ,
     IdTalento             integer,
 	IdMelhorHorario     integer ,
-	primary key (IdTalentoMelhorHorario),
+	primary key (IdTalentoMelhorHorario, IdTalento),
 	constraint fk_TalentoMH_Talento foreign key (IdTalento) references Talento (IdTalento) on delete cascade,
 	constraint fk_TalentoMH_MelhorH foreign key (IdMelhorHorario) references MelhorHorario (IdMelhorHorario) on delete cascade
 );
@@ -75,7 +75,7 @@ CREATE TABLE TalentoConhecimentos
     IdTalento             integer,
 	IdConhecimentoEspecifico integer not   NULL ,
 	Avaliacao             integer   NULL ,
-	primary key (IdTalentoConhecimentos),
+	primary key (IdTalentoConhecimentos, IdTalento, IdConhecimentoEspecifico),
 	constraint fk_TalentoConh_Talento foreign key (IdTalento) references Talento (IdTalento) on delete cascade,
 	constraint fk_TalentoConh_Conhe foreign key (IdConhecimentoEspecifico) references ConhecimentoEspecifico (IdConhecimentoEspecifico) on delete cascade
 );
